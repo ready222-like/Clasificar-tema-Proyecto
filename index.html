@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clasificador de Proyectos — IESTP Acora</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .header-instituto {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+        .logo {
+            height: 90px;
+            width: auto;
+        }
+        .textos-header {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .titulo-instituto {
+            color: #1e40af;
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+        .subtitulo-instituto {
+            color: #3b82f6;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+        .container {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            max-width: 750px;
+            width: 100%;
+            padding: 35px;
+            margin-top: 30px;
+        }
+        h1 {
+            color: #1e40af;
+            text-align: center;
+            font-size: 1.55rem;
+            margin-bottom: 8px;
+        }
+        .subtitulo {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 8px;
+            margin-top: 20px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 13px 15px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.98rem;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        button {
+            width: 100%;
+            background: #1e40af;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #1e3a8a;
+        }
+        .resultado {
+            margin-top: 30px;
+            padding: 25px;
+            background: #eff6ff;
+            border-radius: 10px;
+            border-left: 5px solid #3b82f6;
+            display: none;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .resultado h3 {
+            color: #1e40af;
+            margin-bottom: 15px;
+            font-size: 1.15rem;
+        }
+        .seccion {
+            margin-bottom: 18px;
+        }
+        .seccion h4 {
+            font-size: 0.95rem;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+        .seccion p {
+            color: #1e293b;
+            line-height: 1.6;
+            text-align: justify;
+        }
+        .etiqueta {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin: 8px 0;
+        }
+        .aplicada {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .innovacion {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .mixto {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .programa {
+            background: #f1f5f9;
+            padding: 10px 14px;
+            border-radius: 6px;
+            color: #334155;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .definiciones {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        .definiciones h4 {
+            color: #475569;
+            margin-bottom: 10px;
+        }
+        .definiciones p {
+            margin-bottom: 8px;
+            color: #64748b;
+        }
+        .error {
+            color: #dc2626;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Cabecera con Logo y Datos del Instituto -->
+        <div class="header-instituto">
+            <img src="https://p1-flow-sign.byteimg.com/tos-cn-i-a9yeduch1e/86039901090c46009900990000000000~tplv-ii0cwwkcx9-resize-crop-v1:0:0:329:458:0:0.jpeg?lk3s=19ff00fe&x-expires=2067585600&x-signature=tu-firma-aqui" alt="Logo IESTP Acora" class="logo">
+            <div class="textos-header">
+                <div class="titulo-instituto">INSTITUTO DE EDUCACIÓN SUPERIOR TECNOLÓGICO PÚBLICO ACORA</div>
+                <div class="subtitulo-instituto">INVESTIGACIÓN</div>
+            </div>
+        </div>
+
+        <h1>🎓 Clasificador de Proyectos de Tesis</h1>
+        <p class="subtitulo">Determina si tu proyecto corresponde a Investigación Aplicada o Innovación Tecnológica</p>
+
+        <label for="titulo">📝 Título del Proyecto de Investigación</label>
+        <input type="text" id="titulo" placeholder="Escribe aquí el título completo de tu proyecto...">
+
+        <label for="programa">🏫 Programa de Estudio</label>
+        <select id="programa">
+            <option value="">-- Selecciona un programa --</option>
+            <option value="administracion">🖥️ Administración de Centros de Cómputo</option>
+            <option value="enfermeria">🏥 Enfermería Técnica</option>
+            <option value="agropecuaria">🌾 Producción Agropecuaria</option>
+        </select>
+
+        <button onclick="clasificarProyecto()">🔍 Analizar y Clasificar Proyecto</button>
+
+        <p class="error" id="mensajeError">⚠️ Por favor completa ambos campos antes de continuar.</p>
+
+        <div class="resultado" id="resultado">
+            <h3>✅ Análisis del Proyecto</h3>
+            <div id="contenidoResultado"></div>
+        </div>
+
+        <div class="definiciones">
+            <h4>📌 Definiciones de referencia:</h4>
+            <p><strong>Investigación Aplicada:</strong> Busca resolver un problema concreto mediante el conocimiento existente. Su propósito principal es evaluar, diagnosticar, comparar, analizar o validar soluciones en una situación real. El resultado central son datos, evidencias y recomendaciones prácticas.</p>
+            <p><strong>Innovación Tecnológica:</strong> Consiste en crear, diseñar, construir, implementar o mejorar un producto, equipo, proceso, sistema o servicio. Su propósito principal es generar algo nuevo o mejorado que sea funcional y aporte valor práctico.</p>
+        </div>
+    </div>
+
+    <script>
+        function clasificarProyecto() {
+            const titulo = document.getElementById('titulo').value.trim();
+            const programa = document.getElementById('programa').value;
+            const contenedor = document.getElementById('resultado');
+            const contenido = document.getElementById('contenidoResultado');
+            const error = document.getElementById('mensajeError');
+            
+            // Validación
+            if (!titulo || !programa) {
+                error.style.display = 'block';
+                contenedor.classList.remove('mostrar');
+                return;
+            }
+            error.style.display = 'none';
+
+            // Nombre del programa para mostrar
+            const nombresProgramas = {
+                administracion: '🖥️ Administración de Centros de Cómputo',
+                enfermeria: '🏥 Enfermería Técnica',
+                agropecuaria: '🌾 Producción Agropecuaria'
+            };
+            const nombrePrograma = nombresProgramas[programa];
+
+            const texto = titulo.toLowerCase();
+
+            // Palabras clave por categoría
+            const palabrasAplicada = [
+                'evaluación', 'evaluar', 'diagnóstico', 'diagnosticar', 'análisis', 'analizar',
+                'estudio', 'comparación', 'comparar', 'determinar', 'medir', 'medición',
+                'validar', 'validación', 'comprobar', 'investigación', 'identificar',
+                'caracterizar', 'encuesta', 'diagnóstica', 'efectividad', 'impacto',
+                'nivel de conocimiento', 'prevalencia', 'relación', 'causa', 'efecto'
+            ];
+            const palabrasInnovacion = [
+                'diseño', 'diseñar', 'construcción', 'construir', 'implementación',
+                'implementar', 'desarrollo', 'desarrollar', 'fabricación', 'instalación',
+                'crear', 'creación', 'mejorar', 'mejora', 'optimizar', 'optimización',
+                'prototipo', 'sistema', 'herramienta', 'equipo', 'software', 'máquina',
+                'aplicación', 'modelo', 'adaptación', 'automatización'
+            ];
+
+            let puntuacionAplicada = 0;
+            let puntuacionInnovacion = 0;
+
+            palabrasAplicada.forEach(palabra => {
+                if (texto.includes(palabra)) puntuacionAplicada++;
+            });
+
+            palabrasInnovacion.forEach(palabra => {
+                if (texto.includes(palabra)) puntuacionInnovacion++;
+            });
+
+            // Casos especiales
+            if ((texto.includes('implementación') || texto.includes('implementar')) && 
+                (texto.includes('evaluación') || texto.includes('evaluar'))) {
+                puntuacionAplicada += 2;
+            }
+
+            let clasificacion, claseEtiqueta, explicacion;
+
+            // Contexto según programa
+            const contextoPrograma = {
+                administracion: 'en el ámbito de los sistemas informáticos, gestión tecnológica y procesamiento de información',
+                enfermeria: 'en el contexto de la atención sanitaria comunitaria, promoción de la salud y cuidados técnicos en la región de Puno',
+                agropecuaria: 'en el sector productivo agropecuario, considerando las condiciones climáticas, altitudinales y sociales de la región de Puno'
+            };
+            const contexto = contextoPrograma[programa];
+
+            if (puntuacionAplicada > puntuacionInnovacion) {
+                clasificacion = '🎯 Investigación Aplicada';
+                claseEtiqueta = 'aplicada';
+                explicacion = `
+                    <div class="seccion">
+                        <h4>📋 Clasificación:</h4>
+                        <span class="etiqueta ${claseEtiqueta}">${clasificacion}</span>
+                    </div>
+                    <div class="seccion">
+                        <h4>💡 ¿Por qué pertenece a esta categoría?</h4>
+                        <p>El título del proyecto indica que su enfoque principal consiste en <strong>estudiar, analizar, evaluar o diagnosticar</strong> una situación, problema o necesidad ${contexto}. Su propósito fundamental es generar conocimiento comprobado, datos, evidencias y recomendaciones técnicas que permitan entender mejor el problema y proponer soluciones basadas en resultados reales. No se centra principalmente en construir o crear algo nuevo, sino en comprender y validar información para resolver el problema de manera fundamentada.</p>
+                    </div>
+                    <div class="seccion">
+                        <h4>📍 Pertinencia regional:</h4>
+                        <p>Este tipo de investigación es fundamental para la región de Puno, ya que permite diagnosticar con precisión las necesidades reales de la población y del sector productivo local, asegurando que las soluciones propuestas respondan efectivamente a la identidad y realidad de nuestro territorio.</p>
+                    </div>
+                `;
+            } else if (puntuacionInnovacion > puntuacionAplicada) {
+                clasificacion = '⚙️ Innovación Tecnológica';
+                claseEtiqueta = 'innovacion';
+                explicacion = `
+                    <div class="seccion">
+                        <h4>📋 Clasificación:</h4>
+                        <span class="etiqueta ${claseEtiqueta}">${clasificacion}</span>
+                    </div>
+                    <div class="seccion">
+                        <h4>💡 ¿Por qué pertenece a esta categoría?</h4>
+                        <p>El título del proyecto evidencia que su aporte principal es <strong>crear, diseñar, construir, implementar o mejorar</strong> un producto, equipo, sistema, proceso o servicio funcional ${contexto}. Su propósito central es entregar una solución concreta y utilizable que resuelva directamente el problema identificado. Se enfoca en la aplicación práctica del conocimiento tecnológico para generar algo que antes no existía o que ahora funciona de manera más eficiente.</p>
+                    </div>
+                    <div class="seccion">
+                        <h4>📍 Pertinencia regional:</h4>
+                        <p>La innovación tecnológica es clave para el desarrollo de la región de Puno, ya que permite dotar a nuestros profesionales y comunidades de herramientas prácticas adaptadas a nuestra realidad, mejorando la productividad, la calidad de los servicios y la respuesta a las necesidades locales.</p>
+                    </div>
+                `;
+            } else {
+                clasificacion = '🔄 Ambas categorías (enfoque combinado)';
+                claseEtiqueta = 'mixto';
+                explicacion = `
+                    <div class="seccion">
+                        <h4>📋 Clasificación:</h4>
+                        <span class="etiqueta ${claseEtiqueta}">${clasificacion}</span>
+                    </div>
+                    <div class="seccion">
+                        <h4>💡 Análisis detallado:</h4>
+                        <p>El proyecto integra elementos de ambos tipos de investigación: por un lado, plantea la implementación o creación de una solución, y por otro, contempla su evaluación o análisis. En estos casos, se recomienda definir cuál es el <strong>aporte principal</strong> del trabajo de tesis:</p>
+                        <p style="margin: 8px 0; padding-left: 15px;">• Si el énfasis está en <strong>medir, comparar o validar resultados</
